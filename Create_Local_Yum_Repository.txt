@@ -1,0 +1,42 @@
+#*********************************** Scenario: Creating Local Yum Repository *****************************************************************
+
+The Nautilus production support team and security team had a meeting last month in which they decided to use local yum repositories for maintaing packages needed for their servers. 
+For now they have decided to configure a local yum repo on Nautilus Backup Server. 
+This is one of the pending items from last month, so please configure a local yum repository on Nautilus Backup Server as per details given below.
+
+a. We have some packages already present at location /packages/downloaded_rpms/ on Nautilus Backup Server.
+
+b. Create a yum repo named localyum and make sure to set Repository ID to localyum. Configure it to use package's location /packages/downloaded_rpms/.
+
+c. Install package wget from this newly created repo.
+
+**********************************************************************************************************************************************
+Solution:
+
+1. At first login on Backup server  & Switch to  root user
+ssh clint@stbkp01 
+
+2. Run the Below command to   check is there  already any yum repository is available    
+yum repolist
+
+3. Since there is no repo you need to create local repo  as per the task
+vi /etc/yum.repos.d/localyum.repo
+
+[localyum]
+
+name = localyum
+
+baseurl = file:///packages/downloaded_rpms/
+
+enabled = 1
+
+gpgcheck = 0
+
+4. After the file is saved, check to create repo listed 
+yum repolist
+
+5. As per the task install package (wget)
+yum install wget
+
+6. Validate the task 
+yum list wget
